@@ -1,27 +1,22 @@
-var mysql = require('mysql');
+const express = require('express');
+const mysql = require('mysql');
+const bodyParser = require('body-parser');
 
+const app = express();
+
+app.use(bodyParser.json())
+
+//mysql
 var connection = mysql.createConnection({
     host: "localhost",
     database:"hectorva_db",
-    user: "root",
-    password: ""
-});
+    user: "hectorva_user01",
+    password: "codname47",
+    charset : "utf8mb4"
+  });
 
-connection.connect(function(error){
-    if(error){
-        throw error;
-    }else{
-        console.log('CONEXION EXITOSA');
-    }
-});
-
-connection.query('SELECT * FROM usuarios', function(error, results, fields){
-    if(error)
-        throw error
-    
-    results.forEach(result => {
-        console.log(result);
-    });
-});
-
-connection.end();
+  //chceck conn
+  connection.connect(error =>{
+      if(error) throw error;
+      console.log('Database is runing');
+  });
